@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.microsoft.melange.gondispeak">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name="edu.cmu.cs.speech.tts.flite.FliteTtsService"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.TTS_SERVICE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.speech.tts"
+                android:resource="@xml/tts_engine" />
+        </service>
+
+        <activity
+            android:name="edu.cmu.cs.speech.tts.flite.DownloadVoiceData"
+            android:label="@string/flite_voice_manager"
+            android:theme="@android:style/Theme.Material.Light">
+            <intent-filter>
+                <action android:name="android.speech.tts.engine.INSTALL_TTS_DATA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.cmu.cs.speech.tts.flite.CheckVoiceData"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.speech.tts.engine.CHECK_TTS_DATA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Dashboard"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TypeGondi"
+            android:label="@string/type_gondi_title" />
+        <activity android:name=".MediaSwara" />
+        <activity android:name=".History" />
+
+        <!-- Legacy Code for pre-ICS compatibility -->
+
+        <activity
+            android:name="edu.cmu.cs.speech.tts.flite.Flite"
+            android:enabled="true"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.START_TTS_ENGINE" />
+
+                <category android:name="android.intent.category.tts_engine.FLITE" />
+                <category android:name="android.intent.category.tts_lang.eng.USA" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="edu.cmu.cs.speech.tts.flite.providers.SettingsProvider"
+            android:authorities="edu.cmu.cs.speech.tts.flite.providers.SettingsProvider" />
+
+        <activity android:name=".MediaActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+    </application>
+
+</manifest>

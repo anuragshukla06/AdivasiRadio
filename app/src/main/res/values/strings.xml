@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Adivasi Radio</string>
+    <string name="action_settings">Settings</string>
+    <string name="voice_list">Manage voices</string>
+    <string name="eng_sample">This is a sample English sentence for Flite synthesizer.</string>
+    <string name="indic_sample">हिंदी भारत की राष्ट्रभाषा है।  मराठी ही महाराष्ट्र राज्याची अधिकृत भाषा आहे.</string>
+    <string name="flite_manager">Flite</string>
+    <string name="flite_voice_manager">TTS Voice Management</string>
+    <string name="voice_list_update">Download Voice List</string>
+    <string name="todo">TODO</string>
+    <string name="type_gondi_title">गोंडी में टाइप करें</string>
+    <string name="gondi_input">यहाँ देवनागरी में गोंडी लिखें</string>
+    <string name="speak_button_text">बोलो</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Temp -->
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">ADIVASI RADIO</string>
+    <string name="backdrop_subtitle">Listen to articles on CGNet Swara</string>
+</resources>
