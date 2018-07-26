@@ -2,6 +2,7 @@ package com.microsoft.melange.gondispeak;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +16,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
+public class SavedTextAdapter extends RecyclerView.Adapter<SavedTextAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Article> articleList;
+    private List<SavedText> savedTextList;
     Dashboard dashboard = Dashboard.getDashboard();
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -36,27 +37,29 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
     }
 
-    public ArticlesAdapter(Context mContext, List<Article> articleList) {
+    public SavedTextAdapter(Context mContext, List<SavedText> savedTextList) {
         this.mContext = mContext;
-        this.articleList = articleList;
+        this.savedTextList = savedTextList;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.article_card, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
+
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Article article = articleList.get(position);
-        holder.title.setText(article.getTitle());
-        holder.content.setText(article.getContent());
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+        SavedText savedText = savedTextList.get(position);
+        holder.title.setText("User Text");
+        holder.content.setText(savedText.getText());
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(article.getThumbnail()).into(holder.thumbnail);
+        Glide.with(mContext).load(savedText.getThumbnail()).into(holder.thumbnail);
 
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +75,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         });
     }
 
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
     private void readOutArticle(View title, View content) {
         // inflate menu
         // Activate TTS
@@ -82,7 +82,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         String speak_content = ((TextView) content).getText().toString();
 
         Log.d("ARTCILE CONTENT", speak_title);
-        dashboard.sayText(speak_title, TextToSpeech.QUEUE_ADD);
+        //dashboard.sayText(speak_title, TextToSpeech.QUEUE_ADD);
         dashboard.sayText(speak_content, TextToSpeech.QUEUE_ADD);
     }
 
@@ -90,9 +90,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         dashboard.stopSpeaking();
     }
 
-
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return savedTextList.size();
     }
 }

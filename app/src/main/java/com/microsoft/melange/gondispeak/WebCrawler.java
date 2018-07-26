@@ -179,8 +179,8 @@ public class WebCrawler {
                 if (httpUrl != null) {
                     HttpURLConnection conn = (HttpURLConnection) httpUrl
                             .openConnection();
-                    conn.setConnectTimeout(5000);
-                    conn.setReadTimeout(5000);
+                    conn.setConnectTimeout(10000);
+                    conn.setReadTimeout(10000);
                     responseCode = conn.getResponseCode();
                     if (responseCode != HttpURLConnection.HTTP_OK) {
                         throw new IllegalAccessException(

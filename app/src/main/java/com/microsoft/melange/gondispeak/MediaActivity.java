@@ -17,13 +17,12 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +38,7 @@ public class MediaActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArticlesAdapter adapter;
     private List<Article> articleList;
+    private ProgressBar pgsBar;
 
     // WebCrawler object will be used to start crawling on root Url
     private WebCrawler crawler;
@@ -68,6 +68,8 @@ public class MediaActivity extends AppCompatActivity {
 
         initCollapsingToolbar();
 
+        pgsBar = (ProgressBar) findViewById(R.id.pBar);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         articleList = new ArrayList<>();
@@ -81,6 +83,7 @@ public class MediaActivity extends AppCompatActivity {
 
         crawler = new WebCrawler(this, mCallback);
         crawlingRunning = true;
+        pgsBar.setVisibility(View.VISIBLE);
         crawler.startCrawlerTask(CGNET_ROOT_URL, true);
 
         // Send delayed message to handler for stopping crawling
@@ -88,7 +91,7 @@ public class MediaActivity extends AppCompatActivity {
                 CRAWLING_RUNNING_TIME);
 
         try {
-            Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));
+            Glide.with(this).load(R.drawable.cover_new).into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,8 +151,11 @@ public class MediaActivity extends AppCompatActivity {
             //startButton.setEnabled(true);
             //startButton.setVisibility(View.VISIBLE);
             crawlingRunning = false;
+            pgsBar.setVisibility(View.GONE);
             if (crawledUrlCount > 0)
                 Toast.makeText(getApplicationContext(),prepareArticlesFromDb() + "pages crawled",Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getApplicationContext(),"Failed to download articles from CGNet!",Toast.LENGTH_SHORT).show();
 
             crawledUrlCount = 0;
             //progressText.setText("");

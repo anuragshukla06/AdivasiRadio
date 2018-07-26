@@ -166,8 +166,10 @@ public class Dashboard extends AppCompatActivity implements TextToSpeech.OnInitL
         */
     }
 
-    public void sayText(String text) {
+    public void sayText(String text, int mode) {
         Log.v(LOG_TAG, "Speaking: " + text);
+
+
         //TODO: GET FROM SETTINGS LATER
         //int currentVoiceID = mVoiceSpinner.getSelectedItemPosition();
         int currentVoiceID = 0;
@@ -181,7 +183,11 @@ public class Dashboard extends AppCompatActivity implements TextToSpeech.OnInitL
         int currentRate = 2;
         mTts.setSpeechRate((float)(currentRate + 1)/3);
 
-        mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        mTts.speak(text, mode, null);
+    }
+
+    public void stopSpeaking() {
+        mTts.stop();
     }
 
     @Override
